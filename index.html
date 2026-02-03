@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine 💘</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #ffe6eb;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 28px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+      height: 150px;
+      width: 100%;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      left: 15%;
+      margin-right: 500px;
+      position: relative;
+    }
+
+    #no {
+      background: #ccc;
+      position: absolute;
+      top: 1px;
+      left: 55%;
+      transform: translateX(-50%);
+      transition: top 0.2s ease, left 0.2s ease;
+    }
+
+    #result {
+      display: none;
+      position: absolute;
+      top: 120px; /* moved a bit higher */
+      left: 44%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    #teaseImg {
+      display: none;
+      position: absolute;
+      max-width: 260px;
+      border-radius: 12px;
+      z-index: 10;
+    }
+
+    img {
+      max-width: 200px;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Ar būsi</h1>
+
+  <div class="buttons">
+    <button id="yes">Taip</button>
+    <button id="no">Ne</button>
+  </div>
+
+  <img id="teaseImg" />
+
+  <div id="result">
+    <h2>Puikus pasirinkimas !! 🎉</h2>
+    <img src="https://possible-magenta-21ck7jf8ft.edgeone.app/IMG_6431.png" alt="Love" />
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const result = document.getElementById("result");
+    const container = document.querySelector(".buttons");
+    const teaseImg = document.getElementById("teaseImg");
+
+    const teaseImages = [
+      "https://media.tenor.com/oezioEDfJ3sAAAAM/crying-cry.gif",
+      "https://media1.tenor.com/m/qwhQZ8hTSakAAAAC/arriba.gif",
+      "https://media.tenor.com/erKTwEsGE3MAAAAM/monk-monkey.gif",
+      "https://media.tenor.com/IWBpo4WINTQAAAAM/bye.gif"
+    ];
+
+    // NO button logic
+    noBtn.addEventListener("click", () => {
+      // Move button
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+
+      // Random GIF
+      const randomImg = teaseImages[Math.floor(Math.random() * teaseImages.length)];
+      teaseImg.src = randomImg;
+
+      const gifWidth = 260;
+      const gifHeight = 200;
+
+      const maxGifX = window.innerWidth - gifWidth;
+      const maxGifY = window.innerHeight - gifHeight;
+
+      teaseImg.style.left = Math.random() * maxGifX + "px";
+      teaseImg.style.top = Math.random() * maxGifY + "px";
+
+      teaseImg.style.display = "block";
+
+      setTimeout(() => {
+        teaseImg.style.display = "none";
+      }, 2000);
+    });
+
+    // YES button logic
+    yesBtn.addEventListener("click", () => {
+      // Hide all buttons
+      container.style.display = "none";
+
+      // Show result
+      result.style.display = "block";
+
+      // Confetti
+      confetti({
+        particleCount: 200,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    });
+  </script>
+
+</body>
+</html>
